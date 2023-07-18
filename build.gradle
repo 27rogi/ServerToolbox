@@ -1,0 +1,114 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+	id 'fabric-loom' version "${loom_version}"
+	id 'maven-publish'
+    id "org.jetbrains.kotlin.jvm" version "${kotlin_version}"
+}
+
+version = "${project.mod_version}+${minecraft_version_group}"
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	mavenCentral()
+
+	maven {
+		url 'https://jitpack.io'
+	}
+	maven {
+		url "https://maven.terraformersmc.com/"
+	}
+	maven {
+		url "https://maven.shedaniel.me/"
+	}
+	maven {
+		url "https://maven.nucleoid.xyz/"
+	}
+	maven {
+		url "https://maven.siphalor.de/"
+	}
+	maven {
+		url "https://oss.sonatype.org/content/repositories/snapshots"
+	}
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+	mods {
+		"server-toolbox" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Fabric API
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modImplementation include("net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}")
+	modImplementation include("eu.pb4:placeholder-api:2.1.2+1.20.1")
+	modImplementation include("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")
+	modImplementation include("net.silkmc:silk-core:1.10.0")
+	modImplementation include("net.silkmc:silk-commands:1.10.0")
+	modImplementation include("net.silkmc:silk-nbt:1.10.0")
+	modImplementation include("xyz.nucleoid:server-translations-api:2.0.0-beta.2+1.19.4-pre2")
+	modImplementation include("com.github.Lortseam.completeconfig:base:2.4.0")
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+tasks.withType(KotlinCompile).all {
+	kotlinOptions {
+		jvmTarget = 17
+		freeCompilerArgs += "-Xskip-prerelease-check"
+	}
+}
+
+java {
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
+}
