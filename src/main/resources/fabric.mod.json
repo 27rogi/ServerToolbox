@@ -3,15 +3,15 @@
   "id": "server-toolbox",
   "version": "${version}",
   "name": "Server Toolbox",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "A server-side mod with complect of customizable commands and features to make your server neat. Inspired by Essentials, Essential Commands, plugins and etc.",
   "authors": [
-    "Me!"
+    "27rogi"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://rogi.su/",
+    "sources": "https://github.com/rogi27/ServerToolbox"
   },
-  "license": "CC0-1.0",
+  "license": "GNU GPL 3.0",
   "icon": "assets/server-toolbox/icon.png",
   "environment": "*",
   "entrypoints": {
