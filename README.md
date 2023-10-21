@@ -1,3 +1,5 @@
+> ⚠️ Due to project overview I decided to split it into multiple individual small mods, this mod is now discountinued.
+
 <div align="center">
 <img src=".github/assets/logo.png" />
 
@@ -9,8 +11,6 @@
     
 #### 🧰 A server-side mod with complect of customizable commands and features to make your server neat. Inspired by Essentials, Essential Commands, plugins and etc.
 </div>  
-
-> ⚠️ This project is still in early stages of coding and some features are not tested completely, but you can help me with that by using this mod and reporting issues!
 
 ### Features
 
